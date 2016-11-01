@@ -5,12 +5,19 @@ angular.module('gallery')
     controllerAs: 'gc'
  })
 
-function GalleryController(){
-  this.gallery = [];
-  this.addPiece  = function(newPiece){
-    this.gallery.push(newPiece)
-    this.newPiece = '';
-  console.log(this.gallery)
+function GalleryController(GalleryService){
+  let gs = GalleryService;
+
+  let gc = this;
+
+  gc.gallery = gs.getGallery()
+
+  this.addPiece  = function(newPiece,addAnother){
+    if (!addAnother) {
+      gc.toggleForm = !gc.toggleForm
+    }
+    gs.addPiece(newPiece)
+    this.newPiece = null
   }
 
 }
